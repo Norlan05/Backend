@@ -1,0 +1,11 @@
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\CLINICA.exe
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\appsettings.Development.json
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\appsettings.json
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\CLINICA.dll
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\CLINICA.deps.json
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\CLINICA.runtimeconfig.json
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\CLINICA.pdb
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\edward.lopez\source\repos\CLINICA\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll

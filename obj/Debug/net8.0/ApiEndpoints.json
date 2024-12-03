@@ -1,0 +1,54 @@
+[
+  {
+    "ContainingType": "CLINICA.Controllers.DeleteController",
+    "Method": "Index",
+    "RelativePath": "api/Delete",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.InsertController",
+    "Method": "Index",
+    "RelativePath": "api/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CLINICA.Model_request.reservaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.SelectController",
+    "Method": "Index",
+    "RelativePath": "api/Select",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CLINICA.Model_request.Cliente_search",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.UpdateController",
+    "Method": "Index",
+    "RelativePath": "api/Update",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
