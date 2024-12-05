@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Clinica_Dr_Toruño.props" />
-</Project>

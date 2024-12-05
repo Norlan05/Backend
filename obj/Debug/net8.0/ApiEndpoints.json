@@ -27,16 +27,42 @@
   },
   {
     "ContainingType": "CLINICA.Controllers.SelectController",
-    "Method": "Index",
-    "RelativePath": "api/Select",
-    "HttpMethod": "POST",
+    "Method": "GetAllReservations",
+    "RelativePath": "api/Select/GetAllReservations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.SelectController",
+    "Method": "GetReservationById",
+    "RelativePath": "api/Select/GetReservationById/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "model",
-        "Type": "CLINICA.Model_request.Cliente_search",
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.SelectController",
+    "Method": "GetReservationsByEmail",
+    "RelativePath": "api/Select/GetReservationsByEmail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "correo_electronico",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

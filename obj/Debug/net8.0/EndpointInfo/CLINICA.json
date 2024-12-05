@@ -48,30 +48,55 @@
         }
       }
     },
-    "/api/Select": {
-      "post": {
+    "/api/Select/GetAllReservations": {
+      "get": {
         "tags": [
           "Select"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Cliente_search"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Cliente_search"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Cliente_search"
-              }
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Select/GetReservationById/{id}": {
+      "get": {
+        "tags": [
+          "Select"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Select/GetReservationsByEmail": {
+      "get": {
+        "tags": [
+          "Select"
+        ],
+        "parameters": [
+          {
+            "name": "correo_electronico",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -94,16 +119,6 @@
   },
   "components": {
     "schemas": {
-      "Cliente_search": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "reservaDTO": {
         "type": "object",
         "properties": {
