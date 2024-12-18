@@ -59,9 +59,12 @@ namespace CLINICA.Controllers
                     apellido = model.apellido,
                     correo_electronico = model.correo_electronico,
                     numero_telefono = model.numero_telefono,
+                    Estado = model.Estado,  // Estado de la reserva (Pendiente, Confirmada, Cancelada)
+                    Cedula = model.Cedula, // Cédula del paciente
                     fecha = model.fecha.Date,
                     hora = hora,
                     fecha_hora = model.fecha.Date + hora // Combina la fecha y hora
+                     
                 };
 
                 db.Reservas.Add(model_);

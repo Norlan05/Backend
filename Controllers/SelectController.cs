@@ -34,12 +34,14 @@ namespace CLINICA.Controllers
                         r.correo_electronico,
                         r.numero_telefono,
                         fecha = r.fecha_hora.ToString("yyyy-MM-dd"),
-                        hora = r.fecha_hora.ToString("HH:mm")
+                        hora = r.fecha_hora.ToString("HH:mm"),
+                        r.Cedula,
+                        r.Estado,
                     })
                     .ToList();
 
                 // Verificar si la tabla tiene datos
-                if (reservas == null || !reservas.Any())
+                if (!reservas.Any()) // Solo verificamos si la lista está vacía
                 {
                     return NotFound(new { message = "No se encontraron reservas." });
                 }
@@ -68,6 +70,8 @@ namespace CLINICA.Controllers
                         r.id,
                         r.nombre,
                         r.apellido,
+                        r.Cedula,
+                        r.Estado,
                         r.correo_electronico,
                         r.numero_telefono,
                         fecha = r.fecha_hora.ToString("yyyy-MM-dd"),
@@ -107,6 +111,8 @@ namespace CLINICA.Controllers
                         r.apellido,
                         r.correo_electronico,
                         r.numero_telefono,
+                        r.Cedula,
+                        r.Estado,
                         fecha = r.fecha_hora.ToString("yyyy-MM-dd"),
                         hora = r.fecha_hora.ToString("HH:mm")
 

@@ -11,5 +11,7 @@
         public DateTime fecha { get; set; }
         public TimeSpan hora { get; set; }  // Esto almacena solo la hora.
         public DateTime fecha_hora { get; set; }  // Combinación de fecha y hora
+        public string Estado { get; set; } = "Pendiente";  // Estado de la reserva (Pendiente, Confirmada, Cancelada)
+        public string Cedula { get; set; }  // Cédula del paciente
     }
 }

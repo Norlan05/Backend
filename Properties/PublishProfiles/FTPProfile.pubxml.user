@@ -6,7 +6,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA2vR/ZhaeBkCQylRBwurPmQAAAAACAAAAAAADZgAAwAAAABAAAADdC1MZIXpcxBaLpKfpUfccAAAAAASAAACgAAAAEAAAAObtBdm0XsoUOGSokGSclm0gAAAA7BLfVgXaolqZ4CiJL0+N5ISHFFlq4ll4xWrP9UVzIJ4UAAAArALysol4xZecwpy/U2gT5I8ZrNo=</EncryptedPassword>
-    <History>True|2024-12-09T21:47:06.1929280Z||;False|2024-12-09T15:36:39.6735359-06:00||;False|2024-12-08T23:04:14.3010492-06:00||;True|2024-12-03T21:24:10.9369868-06:00||;True|2024-11-27T11:53:25.3873924-06:00||;True|2024-08-31T10:34:15.4147033-06:00||;False|2024-08-31T10:30:57.9651835-06:00||;</History>
+    <History>True|2024-12-16T04:52:03.1429835Z||;False|2024-12-15T22:50:01.6163125-06:00||;True|2024-12-15T19:43:12.2947194-06:00||;False|2024-12-15T19:41:07.5880922-06:00||;True|2024-12-09T15:47:06.1929280-06:00||;False|2024-12-09T15:36:39.6735359-06:00||;False|2024-12-08T23:04:14.3010492-06:00||;True|2024-12-03T21:24:10.9369868-06:00||;True|2024-11-27T11:53:25.3873924-06:00||;True|2024-08-31T10:34:15.4147033-06:00||;False|2024-08-31T10:30:57.9651835-06:00||;</History>
     <LastFailureDetails />
     <_PublishTargetUrl>ftp://155.254.244.35/www.Clinica.somee.com</_PublishTargetUrl>
   </PropertyGroup>
@@ -24,16 +24,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/10/2024 10:43:48</publishTime>
     </File>
     <File Include="CLINICA.deps.json">
-      <publishTime>12/09/2024 15:45:51</publishTime>
+      <publishTime>12/15/2024 22:50:21</publishTime>
     </File>
     <File Include="CLINICA.dll">
-      <publishTime>12/09/2024 15:45:51</publishTime>
+      <publishTime>12/15/2024 22:50:21</publishTime>
     </File>
     <File Include="CLINICA.exe">
-      <publishTime>12/09/2024 15:45:51</publishTime>
+      <publishTime>12/15/2024 22:50:21</publishTime>
     </File>
     <File Include="CLINICA.pdb">
-      <publishTime>12/09/2024 15:45:51</publishTime>
+      <publishTime>12/15/2024 22:50:21</publishTime>
     </File>
     <File Include="CLINICA.runtimeconfig.json">
       <publishTime>03/12/2024 21:22:21</publishTime>
@@ -210,7 +210,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 17:49:44</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>12/09/2024 15:45:51</publishTime>
+      <publishTime>12/15/2024 22:50:21</publishTime>
     </File>
   </ItemGroup>
 </Project>

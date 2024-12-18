@@ -12,6 +12,7 @@ namespace CLINICA.Data
         {
         }
         public virtual DbSet<reservas> Reservas { get; set; }
+        public virtual DbSet<Pacientes> Pacientes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,7 +38,26 @@ namespace CLINICA.Data
                 entity.Property(e => e.hora).HasColumnName("hora");
 
                 entity.Property(e => e.fecha_hora).HasColumnName("fecha_hora");
-               
+                // Nuevos campos
+                entity.Property(e => e.Estado).HasColumnName("Estado").HasDefaultValue("Pendiente");  // Estado predeterminado
+                entity.Property(e => e.Cedula).HasColumnName("Cedula");
+            });
+
+            // Configuración para la entidad "Pacientes"
+            modelBuilder.Entity<Pacientes>(entity =>
+            {
+                entity.HasKey(e => e.PacienteID);  // Definir la clave primaria
+
+                entity.ToTable("Pacientes","dbo");
+
+                entity.Property(e => e.PacienteID).HasColumnName("PacienteID");
+                entity.Property(e => e.Nombre).HasColumnName("Nombre");
+                entity.Property(e => e.Apellido).HasColumnName("Apellido");
+                entity.Property(e => e.Correo_Electronico).HasColumnName("Correo_Electronico");
+                entity.Property(e => e.Telefono).HasColumnName("Telefono");
+                entity.Property(e => e.Cedula).HasColumnName("Cedula");
+                entity.Property(e => e.Direccion).HasColumnName("Direccion");
+                entity.Property(e => e.Fecha_Nacimiento).HasColumnName("Fecha_Nacimiento");
             });
 
             OnModelCreatingPartial(modelBuilder);
