@@ -48,184 +48,30 @@
         }
       }
     },
-    "/api/Pacientes": {
-      "get": {
-        "tags": [
-          "Pacientes"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Pacientes"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Pacientes"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Pacientes"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/InsertPaciente": {
       "post": {
         "tags": [
-          "Pacientes"
+          "InsertPaciente"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pacientes"
+                "$ref": "#/components/schemas/PacienteDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pacientes"
+                "$ref": "#/components/schemas/PacienteDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Pacientes"
+                "$ref": "#/components/schemas/PacienteDTO"
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pacientes"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pacientes"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pacientes"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Pacientes/{id}": {
-      "get": {
-        "tags": [
-          "Pacientes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pacientes"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pacientes"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pacientes"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Pacientes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Pacientes"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Pacientes"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Pacientes"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Pacientes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -333,13 +179,9 @@
         },
         "additionalProperties": false
       },
-      "Pacientes": {
+      "PacienteDTO": {
         "type": "object",
         "properties": {
-          "pacienteID": {
-            "type": "integer",
-            "format": "int32"
-          },
           "nombre": {
             "type": "string",
             "nullable": true

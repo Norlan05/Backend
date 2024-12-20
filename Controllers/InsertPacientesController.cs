@@ -1,95 +1,59 @@
-﻿using CLINICA.Data;
+﻿// Controllers/InsertPacienteController.cs
+using CLINICA.Data;
 using CLINICA.Modelos;
+using CLINICA.Model_request;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CLINICA.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class PacientesController : ControllerBase
+    [Route("api/[controller]")]
+    public class InsertPacienteController : ControllerBase
     {
-        private readonly ClinicaDbcontext _context;
+        private readonly ClinicaDbcontext _db;
 
-        public PacientesController(ClinicaDbcontext context)
+        public InsertPacienteController(ClinicaDbcontext db)
         {
-            _context = context;
+            _db = db;
         }
 
-        // GET: api/Pacientes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pacientes>>> GetPacientes()
-        {
-            return await _context.Pacientes.ToListAsync();
-        }
-
-        // GET: api/Pacientes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Pacientes>> GetPaciente(int id)
-        {
-            var paciente = await _context.Pacientes.FindAsync(id);
-
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-
-            return paciente;
-        }
-
-        // POST: api/Pacientes
+        // Acción POST para registrar un nuevo paciente
         [HttpPost]
-        public async Task<ActionResult<Pacientes>> PostPaciente(Pacientes paciente)
+        public IActionResult InsertarPaciente(PacienteDTO model)
         {
-            // Validación adicional
-            if (string.IsNullOrEmpty(paciente.Nombre) || string.IsNullOrEmpty(paciente.Cedula))
+            // Validación de campos obligatorios
+            if (string.IsNullOrEmpty(model.Nombre) || string.IsNullOrEmpty(model.Cedula))
             {
-                return BadRequest("El nombre y la Cedula son obligatorios.");
+                return BadRequest("El nombre y la cédula son obligatorios.");
             }
 
-            // Verificar si ya existe un paciente con el mismo teléfono o correo
-            var pacienteExistente = await _context.Pacientes
-                                                  .FirstOrDefaultAsync(p => p.Cedula == paciente.Telefono || p.Correo_Electronico == paciente.Correo_Electronico);
+            // Verificar si ya existe un paciente con la misma cédula o correo electrónico
+            var pacienteExistente = _db.Pacientes
+                .FirstOrDefault(p => p.Cedula == model.Cedula || p.Correo_Electronico == model.Correo_Electronico);
             if (pacienteExistente != null)
             {
-                return Conflict("Ya existe un paciente con esa Cedula o correo.");
+                return Conflict("Ya existe un paciente con esta cédula o correo electrónico.");
             }
 
-            _context.Pacientes.Add(paciente);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPaciente", new { id = paciente.PacienteID }, paciente);
-        }
-
-        // PUT: api/Pacientes/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaciente(int id, Pacientes paciente)
-        {
-            if (id != paciente.PacienteID)
+            // Crear un nuevo objeto paciente a partir del modelo recibido
+            var nuevoPaciente = new Pacientes
             {
-                return BadRequest();
-            }
+                Nombre = model.Nombre,
+                Apellido = model.Apellido,
+                Correo_Electronico = model.Correo_Electronico,
+                Telefono = model.Telefono,
+                Cedula = model.Cedula,
+                Direccion = model.Direccion,
+                Fecha_Nacimiento = model.Fecha_Nacimiento
+            };
 
-            _context.Entry(paciente).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            // Insertar el nuevo paciente en la base de datos
+            _db.Pacientes.Add(nuevoPaciente);
+            _db.SaveChanges();
 
-            return NoContent();
-        }
-
-        // DELETE: api/Pacientes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePaciente(int id)
-        {
-            var paciente = await _context.Pacientes.FindAsync(id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-
-            _context.Pacientes.Remove(paciente);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            // Retornar el paciente recién creado
+            return Ok(nuevoPaciente);
         }
     }
 }
