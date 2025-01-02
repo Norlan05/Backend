@@ -10,6 +10,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "CLINICA.Controllers.EstadosController",
+    "Method": "UpdateReservationStatusByCedula",
+    "RelativePath": "api/Estados/UpdateReservationStatusByCedula/{cedula}/{hora}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cedula",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "hora",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "estadoId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CLINICA.Controllers.InsertController",
     "Method": "Index",
     "RelativePath": "api/Insert",
@@ -42,61 +68,13 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "CLINICA.Controllers.ReservationController",
-    "Method": "UpdateReservationState",
-    "RelativePath": "api/Reservation/UpdateReservationState",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "estadoRequest",
-        "Type": "CLINICA.Controllers.EstadoRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "CLINICA.Controllers.SelectController",
     "Method": "GetAllReservations",
-    "RelativePath": "api/Select/GetAllReservations",
+    "RelativePath": "api/Select/GetReservas",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CLINICA.Controllers.SelectController",
-    "Method": "GetReservationById",
-    "RelativePath": "api/Select/GetReservationById/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CLINICA.Controllers.SelectController",
-    "Method": "GetReservationsByEmail",
-    "RelativePath": "api/Select/GetReservationsByEmail",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "correo_electronico",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
     "ReturnTypes": []
   }
 ]

@@ -23,25 +23,25 @@ namespace CLINICA.Controllers
         public IActionResult InsertarPaciente(PacienteDTO model)
         {
             // Validación de campos obligatorios
-            if (string.IsNullOrEmpty(model.Nombre) || string.IsNullOrEmpty(model.Cedula))
+            if (string.IsNullOrEmpty(model.nombre) || string.IsNullOrEmpty(model.Cedula))
             {
-                return BadRequest("El nombre y la cédula son obligatorios.");
+                return BadRequest(new { error = "El nombre y la cédula son obligatorios." });
             }
 
             // Verificar si ya existe un paciente con la misma cédula o correo electrónico
             var pacienteExistente = _db.Pacientes
-                .FirstOrDefault(p => p.Cedula == model.Cedula || p.Correo_Electronico == model.Correo_Electronico);
+                .FirstOrDefault(p => p.Cedula == model.Cedula || p.correo_electronico == model.correo_electronico);
             if (pacienteExistente != null)
             {
-                return Conflict("Ya existe un paciente con esta cédula o correo electrónico.");
+                return Conflict(new { error = "Ya existe un paciente con esta cédula o correo electrónico." });
             }
 
             // Crear un nuevo objeto paciente a partir del modelo recibido
             var nuevoPaciente = new Pacientes
             {
-                Nombre = model.Nombre,
-                Apellido = model.Apellido,
-                Correo_Electronico = model.Correo_Electronico,
+                nombre = model.nombre,
+                apellido = model.apellido,
+                correo_electronico = model.correo_electronico,
                 Telefono = model.Telefono,
                 Cedula = model.Cedula,
                 Direccion = model.Direccion,
@@ -54,6 +54,8 @@ namespace CLINICA.Controllers
 
             // Retornar el paciente recién creado
             return Ok(nuevoPaciente);
+
         }
     }
 }
+

@@ -17,6 +17,58 @@
         }
       }
     },
+    "/api/Estados/UpdateReservationStatusByCedula/{cedula}/{hora}": {
+      "put": {
+        "tags": [
+          "Estados"
+        ],
+        "parameters": [
+          {
+            "name": "cedula",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hora",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Insert": {
       "post": {
         "tags": [
@@ -79,85 +131,10 @@
         }
       }
     },
-    "/api/Reservation/UpdateReservationState": {
-      "put": {
-        "tags": [
-          "Reservation"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EstadoRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EstadoRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EstadoRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Select/GetAllReservations": {
+    "/api/Select/GetReservas": {
       "get": {
         "tags": [
           "Select"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Select/GetReservationById/{id}": {
-      "get": {
-        "tags": [
-          "Select"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Select/GetReservationsByEmail": {
-      "get": {
-        "tags": [
-          "Select"
-        ],
-        "parameters": [
-          {
-            "name": "correo_electronico",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -169,16 +146,6 @@
   },
   "components": {
     "schemas": {
-      "EstadoRequest": {
-        "type": "object",
-        "properties": {
-          "estado": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "PacienteDTO": {
         "type": "object",
         "properties": {
@@ -190,7 +157,7 @@
             "type": "string",
             "nullable": true
           },
-          "correo_Electronico": {
+          "correo_electronico": {
             "type": "string",
             "nullable": true
           },
@@ -237,10 +204,6 @@
             "format": "date-time"
           },
           "hora": {
-            "type": "string",
-            "nullable": true
-          },
-          "estado": {
             "type": "string",
             "nullable": true
           },

@@ -18,8 +18,6 @@ namespace CLINICA.Controllers
             this.db = db;
         }
 
-        
-
         [HttpPost]
         public IActionResult Index(reservaDTO model)
         {
@@ -59,12 +57,12 @@ namespace CLINICA.Controllers
                     apellido = model.apellido,
                     correo_electronico = model.correo_electronico,
                     numero_telefono = model.numero_telefono,
-                    Estado = model.Estado,  // Estado de la reserva (Pendiente, Confirmada, Cancelada)
                     Cedula = model.Cedula, // Cédula del paciente
                     fecha = model.fecha.Date,
                     hora = hora,
-                    fecha_hora = model.fecha.Date + hora // Combina la fecha y hora
-                     
+                    fecha_hora = model.fecha.Date + hora, // Combina la fecha y hora
+                    estado_id = 1, // Default estado_id
+                    estado_descripcion = "Pendiente" // Default estado_descripcion
                 };
 
                 db.Reservas.Add(model_);

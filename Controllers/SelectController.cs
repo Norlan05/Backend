@@ -19,16 +19,19 @@ namespace CLINICA.Controllers
         }
 
         // Método para obtener todas las reservas
-        [HttpGet("GetAllReservations")]
+        [HttpGet("GetReservas")]
         public IActionResult GetAllReservations()
         {
             try
             {
-                // Obtener todos los registros de la tabla reservas
+                // Obtener la fecha actual
+                var fechaActual = DateTime.Now.Date; // Fecha sin hora
+
+                // Obtener solo las reservas del día de hoy o posteriores
                 var reservas = _db.Reservas
+                    .Where(r => r.fecha_hora.Date >= fechaActual)  // Filtramos las reservas
                     .Select(r => new
                     {
-                        r.id,
                         r.nombre,
                         r.apellido,
                         r.correo_electronico,
@@ -36,102 +39,23 @@ namespace CLINICA.Controllers
                         fecha = r.fecha_hora.ToString("yyyy-MM-dd"),
                         hora = r.fecha_hora.ToString("HH:mm"),
                         r.Cedula,
-                        r.Estado,
+                        estado = r.estado_descripcion // Solo la descripción del estado, no el ID
                     })
                     .ToList();
 
-                // Verificar si la tabla tiene datos
-                if (!reservas.Any()) // Solo verificamos si la lista está vacía
+                // Verificar si hay reservas disponibles
+                if (!reservas.Any())
                 {
-                    return NotFound(new { message = "No se encontraron reservas." });
+                    return NotFound(new { message = "No se encontraron reservas para hoy o en el futuro." });
                 }
 
-                // Retornar los datos en formato JSON
+                // Retornar las reservas filtradas en formato JSON
                 return Ok(reservas);
             }
             catch (Exception ex)
             {
                 // Manejar posibles errores
                 return StatusCode(500, new { message = "Error al obtener las reservas.", details = ex.Message });
-            }
-        }
-
-        // Método para obtener una reserva específica por ID
-        [HttpGet("GetReservationById/{id}")]
-        public IActionResult GetReservationById(int id)
-        {
-            try
-            {
-                // Buscar un registro específico por ID
-                var reserva = _db.Reservas
-                    .Where(r => r.id == id)
-                    .Select(r => new
-                    {
-                        r.id,
-                        r.nombre,
-                        r.apellido,
-                        r.Cedula,
-                        r.Estado,
-                        r.correo_electronico,
-                        r.numero_telefono,
-                        fecha = r.fecha_hora.ToString("yyyy-MM-dd"),
-                        hora = r.fecha_hora.ToString("HH:mm")
-                    })
-                    .FirstOrDefault();
-
-                // Validar si no se encontró la reserva
-                if (reserva == null)
-                {
-                    return NotFound(new { message = "Reserva no encontrada." });
-                }
-
-                // Retornar el registro encontrado
-                return Ok(reserva);
-            }
-            catch (Exception ex)
-            {
-                // Manejar posibles errores
-                return StatusCode(500, new { message = "Error al obtener la reserva.", details = ex.Message });
-            }
-        }
-
-        // Método para obtener reservas por correo electrónico
-        [HttpGet("GetReservationsByEmail")]
-        public IActionResult GetReservationsByEmail([FromQuery] string correo_electronico)
-        {
-            try
-            {
-                // Buscar las reservas filtradas por correo electrónico
-                var reservas = _db.Reservas
-                    .Where(r => r.correo_electronico == correo_electronico)
-                    .Select(r => new
-                    {
-                        r.id,
-                        r.nombre,
-                        r.apellido,
-                        r.correo_electronico,
-                        r.numero_telefono,
-                        r.Cedula,
-                        r.Estado,
-                        fecha = r.fecha_hora.ToString("yyyy-MM-dd"),
-                        hora = r.fecha_hora.ToString("HH:mm")
-
-                    })
-                    .ToList();
-
-                // Verificar si se encontraron reservas
-                if (reservas == null || !reservas.Any())
-                {
-                    return NotFound(new { message = "No se encontraron reservas para este correo electrónico." });
-                }
-
-                // Retornar los datos en formato JSON
-                return Ok(reservas);
-            }
-            catch (Exception ex)
-            {
-                // Manejar posibles errores
-                return StatusCode(500, new { message = "Error al obtener las reservas por correo electrónico.", details = ex.Message });
             }
         }
     }

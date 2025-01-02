@@ -8,7 +8,6 @@
         public string? numero_telefono { get; set; }
         public DateTime fecha { get; set; }
         public string? hora { get; set; }
-        public string Estado { get; set; } = "Pendiente";  // Estado predeterminado "Pendiente"
-        public string Cedula { get; set; }  // Cédula del paciente
+         public string Cedula { get; set; }
     }
 }
