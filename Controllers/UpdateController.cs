@@ -1,60 +1,59 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using CLINICA.Data;
+using CLINICA.Model_request;
 using CLINICA.Modelos;
-using System.Threading.Tasks;
-using CLINICA.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CLINICA.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EstadosController : ControllerBase
+    public class UpdateController : ControllerBase
     {
-        private readonly ClinicaDbcontext _context;
+        private readonly ClinicaDbcontext _db;
 
-        public EstadosController(ClinicaDbcontext context)
+        public UpdateController(ClinicaDbcontext db)
         {
-            _context = context;  // Asignamos el contexto a _context
+            _db = db;
         }
 
-        [HttpPut("UpdateReservationStatusByCedula/{cedula}/{hora}")]
-        public async Task<IActionResult> UpdateReservationStatusByCedula([FromRoute] string cedula, [FromRoute] string hora, [FromBody] int estadoId)
+        [HttpPost("Actualizar")]
+        public IActionResult ActualizarEstadoReserva([FromBody] ActualizarEstadoDTO model)
         {
-            try
+            // Validación de que se recibió un ID y estado
+            if (string.IsNullOrEmpty(model.id))
             {
-                // Buscar la reserva que coincida con la cédula y la hora
-                var reserva = await _context.Reservas
-                    .Where(r => r.Cedula == cedula && r.fecha_hora.ToString("HH:mm") == hora)
-                    .FirstOrDefaultAsync();
-
-                if (reserva == null)
-                {
-                    return NotFound(new { message = "No se encontró una reserva con esa cédula y hora." });
-                }
-
-                // Verificar si el estado es válido
-                var estado = await _context.Estados.FindAsync(estadoId);
-                if (estado == null)
-                {
-                    return BadRequest(new { message = "Estado no válido." });
-                }
-
-                // Actualizar el estado de la reserva
-                reserva.estado_id = estadoId;  // Asignar el nuevo estado ID
-                reserva.estado_descripcion = estado.descripcion;  // Actualizar la descripción del estado
-
-                // Guardar los cambios en la base de datos
-                await _context.SaveChangesAsync();
-
-                return Ok(new { message = "Estado actualizado correctamente." });
+                return BadRequest("El id de la reserva es requerido.");
             }
-            catch (Exception ex)
+            if (model.estado_id < 1 || model.estado_id > 3)
             {
-                // Manejar posibles errores
-                return StatusCode(500, new { message = "Error al actualizar el estado.", details = ex.Message });
+                return BadRequest("El estado_id debe ser 1 (Pendiente), 2 (Confirmada) o 3 (Cancelada).");
             }
+
+            // Buscar la reserva por su id
+            var reserva = _db.Reservas.FirstOrDefault(r => r.id == int.Parse(model.id));
+
+            if (reserva == null)
+            {
+                return NotFound("Reserva no encontrada.");
+            }
+
+            // Buscar el estado que se asignará según el estado_id
+            var estado = _db.Estados.FirstOrDefault(e => e.estado_id == model.estado_id);
+
+            if (estado == null)
+            {
+                return NotFound("Estado no encontrado.");
+            }
+
+            // Actualizar la reserva con el nuevo estado
+            reserva.estado_id = estado.estado_id;
+            reserva.estado_descripcion = estado.descripcion;
+
+            // Guardar los cambios
+            _db.SaveChanges();
+
+            return Ok(new { mensaje = "Estado de la reserva actualizado correctamente." });
         }
-
-
     }
 }

@@ -17,58 +17,6 @@
         }
       }
     },
-    "/api/Estados/UpdateReservationStatusByCedula/{cedula}/{hora}": {
-      "put": {
-        "tags": [
-          "Estados"
-        ],
-        "parameters": [
-          {
-            "name": "cedula",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "hora",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Insert": {
       "post": {
         "tags": [
@@ -131,6 +79,65 @@
         }
       }
     },
+    "/api/InsertPaciente/insert": {
+      "post": {
+        "tags": [
+          "InsertPaciente"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/insert"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/insert"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/insert"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Reservas/search": {
+      "get": {
+        "tags": [
+          "Reservas"
+        ],
+        "parameters": [
+          {
+            "name": "cedula",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "correo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Select/GetReservas": {
       "get": {
         "tags": [
@@ -142,10 +149,59 @@
           }
         }
       }
+    },
+    "/api/Update/Actualizar": {
+      "post": {
+        "tags": [
+          "Update"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarEstadoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarEstadoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarEstadoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "ActualizarEstadoDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "estado_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PacienteDTO": {
         "type": "object",
         "properties": {
@@ -176,6 +232,37 @@
           "fecha_Nacimiento": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "insert": {
+        "required": [
+          "diagnostico",
+          "motivo_Consulta",
+          "observaciones"
+        ],
+        "type": "object",
+        "properties": {
+          "reservaID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "consultaID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "motivo_Consulta": {
+            "type": "string",
+            "nullable": true
+          },
+          "diagnostico": {
+            "type": "string",
+            "nullable": true
+          },
+          "observaciones": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

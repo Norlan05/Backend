@@ -10,32 +10,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "CLINICA.Controllers.EstadosController",
-    "Method": "UpdateReservationStatusByCedula",
-    "RelativePath": "api/Estados/UpdateReservationStatusByCedula/{cedula}/{hora}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "cedula",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "hora",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "estadoId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "CLINICA.Controllers.InsertController",
     "Method": "Index",
     "RelativePath": "api/Insert",
@@ -68,6 +42,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "CLINICA.Controllers.InsertPacienteController",
+    "Method": "InsertConsulta",
+    "RelativePath": "api/InsertPaciente/insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CLINICA.Modelos.insert",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.ReservasController",
+    "Method": "SearchReservations",
+    "RelativePath": "api/Reservas/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cedula",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "correo",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CLINICA.Controllers.SelectController",
     "Method": "GetAllReservations",
     "RelativePath": "api/Select/GetReservas",
@@ -75,6 +86,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.UpdateController",
+    "Method": "ActualizarEstadoReserva",
+    "RelativePath": "api/Update/Actualizar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CLINICA.Model_request.ActualizarEstadoDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

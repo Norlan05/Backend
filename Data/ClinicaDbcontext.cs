@@ -15,6 +15,7 @@ namespace CLINICA.Data
         }
 
         public virtual DbSet<reservas> Reservas { get; set; }
+        public virtual DbSet<insert> Consultas { get; set; } // Asegúrate de que la clase Consultas esté definida en el espacio de nombres CLINICA.Modelos
         public virtual DbSet<Pacientes> Pacientes { get; set; }
         public virtual DbSet<estados> Estados { get; set; } // Asegúrate de agregar el DbSet para Estado
 
@@ -71,6 +72,22 @@ namespace CLINICA.Data
 
                 entity.Property(e => e.estado_id).HasColumnName("estado_id");
                 entity.Property(e => e.descripcion).HasColumnName("descripcion");
+            });
+            modelBuilder.Entity<insert>(entity =>
+            {
+                entity.HasKey(e => e.ConsultaID);
+                entity.ToTable("Consultas", "dbo");
+
+                entity.Property(e => e.ConsultaID).HasColumnName("ConsultaID");
+                entity.Property(e => e.ReservaID).HasColumnName("ReservaID");
+                entity.Property(e => e.Motivo_Consulta).HasColumnName("Motivo_Consulta").IsRequired();
+                entity.Property(e => e.Diagnostico).HasColumnName("Diagnostico").IsRequired();
+                entity.Property(e => e.Observaciones).HasColumnName("Observaciones");
+
+                entity.HasOne<reservas>()
+                    .WithMany()
+                    .HasForeignKey(e => e.ReservaID)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -32,6 +32,7 @@ namespace CLINICA.Controllers
                     .Where(r => r.fecha_hora.Date >= fechaActual)  // Filtramos las reservas
                     .Select(r => new
                     {
+                        r.id,
                         r.nombre,
                         r.apellido,
                         r.correo_electronico,
