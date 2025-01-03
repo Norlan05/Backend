@@ -48,6 +48,42 @@
         }
       }
     },
+    "/api/Insert/CheckReservation": {
+      "get": {
+        "tags": [
+          "Insert"
+        ],
+        "parameters": [
+          {
+            "name": "cedula",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/InsertPaciente": {
       "post": {
         "tags": [
@@ -88,17 +124,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/insert"
+                "$ref": "#/components/schemas/insertDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/insert"
+                "$ref": "#/components/schemas/insertDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/insert"
+                "$ref": "#/components/schemas/insertDTO"
               }
             }
           }
@@ -236,19 +272,10 @@
         },
         "additionalProperties": false
       },
-      "insert": {
-        "required": [
-          "diagnostico",
-          "motivo_Consulta",
-          "observaciones"
-        ],
+      "insertDTO": {
         "type": "object",
         "properties": {
           "reservaID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "consultaID": {
             "type": "integer",
             "format": "int32"
           },

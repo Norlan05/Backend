@@ -26,6 +26,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "CLINICA.Controllers.InsertController",
+    "Method": "CheckReservation",
+    "RelativePath": "api/Insert/CheckReservation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cedula",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CLINICA.Controllers.InsertPacienteController",
     "Method": "InsertarPaciente",
     "RelativePath": "api/InsertPaciente",
@@ -51,7 +77,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "CLINICA.Modelos.insert",
+        "Type": "CLINICA.Model_request.insertDTO",
         "IsRequired": true
       }
     ],

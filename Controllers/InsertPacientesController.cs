@@ -59,37 +59,30 @@ namespace CLINICA.Controllers
         }
 
         [HttpPost("insert")]
-        public IActionResult InsertConsulta(insert model)
+        public IActionResult InsertConsulta(insertDTO model)
         {
             try
             {
-                // Asegurarnos de que la reserva existe en la base de datos
                 var reserva = _db.Reservas.Find(model.ReservaID);
                 if (reserva == null)
                 {
                     return NotFound("No se encontró una reserva con el ID proporcionado.");
                 }
 
-                // Crear una nueva consulta
                 var insert = new insert()
                 {
-                    
                     ReservaID = model.ReservaID,
                     Motivo_Consulta = model.Motivo_Consulta,
                     Diagnostico = model.Diagnostico,
-                    Observaciones = model.Observaciones,
-                    
-
+                    Observaciones = model.Observaciones
                 };
 
-                // Agregar la nueva consulta al contexto y guardar los cambios
                 _db.Consultas.Add(insert);
                 _db.SaveChanges();
 
-                // Proyectar la respuesta solo con los campos que necesitamos (sin incluir reserva ni paciente)
-                var response = new
+                // Crear el DTO con la respuesta deseada
+                var response = new insertDTO
                 {
-                    // Nota: No necesitamos incluir el "ConsultaID" ya que es autoincremental (IDENTITY)
                     ReservaID = insert.ReservaID,
                     Motivo_Consulta = insert.Motivo_Consulta,
                     Diagnostico = insert.Diagnostico,
@@ -103,6 +96,6 @@ namespace CLINICA.Controllers
                 return StatusCode(500, new { message = "Error interno al guardar la consulta.", details = ex.Message });
             }
         }
+
     }
 }
-

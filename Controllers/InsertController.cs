@@ -49,7 +49,14 @@ namespace CLINICA.Controllers
                 {
                     return Conflict("Ya existe una reserva para esta fecha y hora. Elige otra.");
                 }
+                // Validación de que no se haya hecho una reserva para esta fecha por la misma cédula o correo
+                var reservaPorCedulaOCorreo = db.Reservas
+                    .FirstOrDefault(r => (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) && r.fecha.Date == model.fecha.Date);
 
+                if (reservaPorCedulaOCorreo != null)
+                {
+                    return Conflict("Ya tienes una reserva para esta fecha. Solo se permite una reserva por día.");
+                }
                 // Si no hay conflicto, crear la nueva reserva
                 model_ = new reservas()
                 {
@@ -74,5 +81,20 @@ namespace CLINICA.Controllers
                 return BadRequest("La hora proporcionada no puede ser nula o vacía.");
             }
         }
+
+        [HttpGet("CheckReservation")]
+        public IActionResult CheckReservation(string cedula, string email, DateTime date)
+        {
+            var reservaExistente = db.Reservas
+                .FirstOrDefault(r => (r.Cedula == cedula || r.correo_electronico == email) && r.fecha.Date == date.Date);
+
+            if (reservaExistente != null)
+            {
+                return Ok(new { exists = true });
+            }
+
+            return Ok(new { exists = false });
+        }
+
     }
 }

@@ -28,7 +28,7 @@ namespace CLINICA.Controllers
 
                 // Inicializamos la consulta de reservas
                 var reservas = _context.Reservas
-                    .Where(r => r.fecha_hora.Date >= fechaHoy)  // Filtramos las reservas para que sean solo del día de hoy
+                    .Where(r => r.fecha_hora.Date == fechaHoy)  // Filtramos las reservas para que sean solo del día de hoy
                     .AsQueryable();
 
                 // Si se proporciona cédula, filtramos por cédula
@@ -56,8 +56,7 @@ namespace CLINICA.Controllers
                         // Formateamos la fecha
                         fecha = r.fecha_hora.ToString("yyyy-MM-dd"), // Fecha en formato yyyy-MM-dd
                                                                      // Formateamos la hora para que sea de 12 horas con AM/PM
-                        hora = r.fecha_hora.ToString("h:mm tt"), // Hora en formato 12 horas con AM/PM
-                        
+                        hora = r.fecha_hora.ToString("h:mm tt"),
                     })
                     .ToList();
 
@@ -75,8 +74,6 @@ namespace CLINICA.Controllers
                 return StatusCode(500, new { message = "Error interno al buscar las reservas.", details = ex.Message });
             }
         }
-
-     
 
     }
 }
