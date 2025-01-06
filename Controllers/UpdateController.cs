@@ -55,5 +55,6 @@ namespace CLINICA.Controllers
 
             return Ok(new { mensaje = "Estado de la reserva actualizado correctamente." });
         }
+
     }
 }

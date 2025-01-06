@@ -1,5 +1,58 @@
 [
   {
+    "ContainingType": "CLINICA.Controllers.ActualizarPacienteController",
+    "Method": "UpdatePaciente",
+    "RelativePath": "api/ActualizarPaciente/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pacienteDTO",
+        "Type": "CLINICA.Model_request.ActualizarPacienteDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.Buscar_pacientes_cs",
+    "Method": "SearchPacientes",
+    "RelativePath": "api/Buscar_pacientes_cs/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cedula",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "correo",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.BuscarPacienteController",
+    "Method": "GetPacienteHistorial",
+    "RelativePath": "api/BuscarPaciente/buscar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cedula",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CLINICA.Controllers.DeleteController",
     "Method": "Index",
     "RelativePath": "api/Delete",

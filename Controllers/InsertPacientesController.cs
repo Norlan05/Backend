@@ -96,6 +96,6 @@ namespace CLINICA.Controllers
                 return StatusCode(500, new { message = "Error interno al guardar la consulta.", details = ex.Message });
             }
         }
-
+        
     }
 }
