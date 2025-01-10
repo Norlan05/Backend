@@ -18,6 +18,8 @@ namespace CLINICA.Data
         public virtual DbSet<insert> Consultas { get; set; } // Asegúrate de que la clase Consultas esté definida en el espacio de nombres CLINICA.Modelos
         public virtual DbSet<Pacientes> Pacientes { get; set; }
         public virtual DbSet<estados> Estados { get; set; } // Asegúrate de agregar el DbSet para Estado
+        public virtual DbSet<Usuario> Usuarios { get; set; }  // Tabla Users  
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -89,6 +91,21 @@ namespace CLINICA.Data
                     .HasForeignKey(e => e.ReservaID)
                     .OnDelete(DeleteBehavior.Restrict);
             });
+
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.ToTable("Usuarios", "dbo");
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Username).HasColumnName("username");
+                entity.Property(e => e.Email).HasColumnName("Email");
+                entity.Property(e => e.Password).HasColumnName("Password");
+                entity.Property(e => e.CreatedAt).HasColumnName("CreatedAt");
+                entity.Property(e => e.ResetToken).HasColumnName("ResetToken");
+                entity.Property(e => e.ResetTokenExpiry).HasColumnName("ResetTokenExpiry");  // Aquí corrige el nombre
+            });
+
 
             OnModelCreatingPartial(modelBuilder);
         }
