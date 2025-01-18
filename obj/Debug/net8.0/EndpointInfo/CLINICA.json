@@ -316,6 +316,37 @@
         }
       }
     },
+    "/api/Reset/password": {
+      "post": {
+        "tags": [
+          "Reset"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Select/GetReservas": {
       "get": {
         "tags": [
@@ -421,7 +452,7 @@
       "LoginRequestDTO": {
         "type": "object",
         "properties": {
-          "username": {
+          "email": {
             "type": "string",
             "nullable": true
           },
@@ -478,6 +509,16 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetDto": {
+        "type": "object",
+        "properties": {
+          "email": {
             "type": "string",
             "nullable": true
           }

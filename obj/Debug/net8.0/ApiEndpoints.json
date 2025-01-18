@@ -17,14 +17,14 @@
   },
   {
     "ContainingType": "CLINICA.Controllers.AuthController",
-    "Method": "Login",
+    "Method": "get_user",
     "RelativePath": "api/Auth/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
+        "Name": "model",
         "Type": "CLINICA.Model_request.LoginRequestDTO",
         "IsRequired": true
       }
@@ -185,6 +185,22 @@
         "Name": "correo",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.ResetController",
+    "Method": "Update_password",
+    "RelativePath": "api/Reset/password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CLINICA.Model_request.ResetDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
