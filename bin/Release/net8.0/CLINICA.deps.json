@@ -13,7 +13,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
           "SendGrid": "9.29.3",
-          "Swashbuckle.AspNetCore": "7.2.0"
+          "Swashbuckle.AspNetCore": "7.2.0",
+          "Swashbuckle.AspNetCore.SwaggerGen": "7.2.0"
         },
         "runtime": {
           "CLINICA.dll": {}
