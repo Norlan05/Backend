@@ -1,11 +1,11 @@
-using CLINICA.Data;
-using Microsoft.EntityFrameworkCore;
+using CLINICA.Data; // Espacio de nombres de tu contexto de base de datos
+using Microsoft.EntityFrameworkCore; // Uso de Entity Framework Core
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using System.Text; // Para manejar texto y codificación
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración CORS
+// **Configuración de CORS**
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policyBuilder =>
@@ -17,33 +17,33 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Configuración de conexión a la base de datos
-var connection_string = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ClinicaDbcontext>(options => options.UseSqlServer(connection_string!));
+// **Configuración de conexión a la base de datos**
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ClinicaDbcontext>(options => options.UseSqlServer(connectionString!));
 
-
-
-// Agregar controladores
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// **Agregar servicios necesarios**
+builder.Services.AddControllers();  // Habilitar controladores
+builder.Services.AddEndpointsApiExplorer(); // Documentación para API con Swagger
+builder.Services.AddSwaggerGen();  // Generación de UI Swagger para pruebas
 
 var app = builder.Build();
 
-// Middleware
+// **Habilitar Swagger solo en desarrollo**
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();  // Redirección a HTTPS para mayor seguridad
 
-app.UseCors("CorsPolicy");
+app.UseRouting();           // Configurar rutas antes de CORS
 
-app.UseAuthentication();  // Habilitar autenticación
-app.UseAuthorization();   // Habilitar autorización
+app.UseCors("CorsPolicy");  // Aplicar la política de CORS configurada
 
-app.MapControllers();
+app.UseAuthentication();    // Middleware de autenticación (si es necesario)
+app.UseAuthorization();     // Middleware de autorización (si es necesario)
 
-app.Run();
+app.MapControllers();       // Mapear las rutas a los controladores
+
+app.Run();                   // Ejecutar la aplicación

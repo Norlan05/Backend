@@ -13,7 +13,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
           "SendGrid": "9.29.3",
-          "Swashbuckle.AspNetCore": "7.2.0",
+          "Swashbuckle.AspNetCore": "7.1.0",
           "Swashbuckle.AspNetCore.SwaggerGen": "7.2.0"
         },
         "runtime": {
@@ -521,12 +521,12 @@
           }
         }
       },
-      "Swashbuckle.AspNetCore/7.2.0": {
+      "Swashbuckle.AspNetCore/7.1.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
           "Swashbuckle.AspNetCore.Swagger": "7.2.0",
           "Swashbuckle.AspNetCore.SwaggerGen": "7.2.0",
-          "Swashbuckle.AspNetCore.SwaggerUI": "7.2.0"
+          "Swashbuckle.AspNetCore.SwaggerUI": "7.1.0"
         }
       },
       "Swashbuckle.AspNetCore.Swagger/7.2.0": {
@@ -551,11 +551,11 @@
           }
         }
       },
-      "Swashbuckle.AspNetCore.SwaggerUI/7.2.0": {
+      "Swashbuckle.AspNetCore.SwaggerUI/7.1.0": {
         "runtime": {
           "lib/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
-            "assemblyVersion": "7.2.0.0",
-            "fileVersion": "7.2.0.956"
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.0.916"
           }
         }
       },
@@ -1180,12 +1180,12 @@
       "path": "starkbank-ecdsa/1.3.3",
       "hashPath": "starkbank-ecdsa.1.3.3.nupkg.sha512"
     },
-    "Swashbuckle.AspNetCore/7.2.0": {
+    "Swashbuckle.AspNetCore/7.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vJv19UpWm6OOgnS9QLDnWARNVasXUfj8SFvlG7UVALm4nBnfwRnEky7C0veSDqMUmBeMPC6Ec3d6G1ts/J04Uw==",
-      "path": "swashbuckle.aspnetcore/7.2.0",
-      "hashPath": "swashbuckle.aspnetcore.7.2.0.nupkg.sha512"
+      "sha512": "sha512-PpKwEZNCciDPczWPnuqaTVuN5jR/fG2RubQYgKHVWY2KB+TpvKkOrQJoF51S1yMJxygaofCM3BXlLy4PK/o8WA==",
+      "path": "swashbuckle.aspnetcore/7.1.0",
+      "hashPath": "swashbuckle.aspnetcore.7.1.0.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore.Swagger/7.2.0": {
       "type": "package",
@@ -1201,12 +1201,12 @@
       "path": "swashbuckle.aspnetcore.swaggergen/7.2.0",
       "hashPath": "swashbuckle.aspnetcore.swaggergen.7.2.0.nupkg.sha512"
     },
-    "Swashbuckle.AspNetCore.SwaggerUI/7.2.0": {
+    "Swashbuckle.AspNetCore.SwaggerUI/7.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hgrXeKzyp5OGN8qVvL7A+vhmU7mDJTfGpiMBRL66IcfLOyna8UTLtn3cC3CghamXpRDufcc9ciklTszUGEQK0w==",
-      "path": "swashbuckle.aspnetcore.swaggerui/7.2.0",
-      "hashPath": "swashbuckle.aspnetcore.swaggerui.7.2.0.nupkg.sha512"
+      "sha512": "sha512-Tn9+gbG2wGekFDcm1+XQXPZoSZWOHn3DiEGaEw3/SMCtKdhkYiejoKpmTzZueKOBQf0Lzgvxs6Lss0WObN0RPA==",
+      "path": "swashbuckle.aspnetcore.swaggerui/7.1.0",
+      "hashPath": "swashbuckle.aspnetcore.swaggerui.7.1.0.nupkg.sha512"
     },
     "System.ClientModel/1.0.0": {
       "type": "package",

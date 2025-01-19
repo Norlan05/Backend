@@ -192,8 +192,20 @@ C:\Users\norla\Documents\Proyecto Final Pagina Web\edwar\bin\Debug\net8.0\System
 C:\Users\norla\Documents\Proyecto Final Pagina Web\edwar\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 C:\Users\norla\Documents\Proyecto Final Pagina Web\edwar\bin\Debug\net8.0\System.Text.Json.dll
 C:\Users\norla\Documents\Proyecto Final Pagina Web\edwar\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\publicacion\web.config
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\web.config
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\appsettings.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\appsettings.Development.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\appsettings.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\CLINICA.deps.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\CLINICA.runtimeconfig.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\CLINICA.staticwebassets.endpoints.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\publicacion\appsettings.Development.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\publicacion\appsettings.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\publicacion\CLINICA.deps.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\publicacion\CLINICA.runtimeconfig.json
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\publicacion\publicacion\CLINICA.staticwebassets.endpoints.json
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\CLINICA.staticwebassets.endpoints.json
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\CLINICA.exe
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\bin\Debug\net8.0\CLINICA.deps.json
@@ -368,3 +380,4 @@ C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net8.0\refint\C
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net8.0\CLINICA.pdb
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net8.0\CLINICA.genruntimeconfig.cache
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net8.0\ref\CLINICA.dll
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
