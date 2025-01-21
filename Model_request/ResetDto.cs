@@ -3,5 +3,6 @@
     public class ResetDto
     {
         public string? email { get; set; }
+        
     }
 }

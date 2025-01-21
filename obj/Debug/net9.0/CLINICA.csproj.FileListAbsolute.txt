@@ -85,3 +85,4 @@ C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net9.0\refint\C
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net9.0\CLINICA.pdb
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net9.0\CLINICA.genruntimeconfig.cache
 C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net9.0\ref\CLINICA.dll
+C:\Users\norla\Documents\Proyecto Final Pagina Web\API\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

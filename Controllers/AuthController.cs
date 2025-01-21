@@ -46,50 +46,46 @@ namespace CLINICA.Controllers
             return Ok(new { message = "Usuario registrado exitosamente" });
         }
 
-
         // POST: api/Auth/login
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> get_user(LoginRequestDTO model)
         {
             // Validar el modelo de la solicitud
-            (var error_in_requet, bool validate) = ValidateRequest(model);
+            var (error_in_requet, validate) = ValidateRequest(model);
             if (validate) return BadRequest(error_in_requet);
 
-            // Verificar si el usuario tiene un token de reinicio y si está dentro del tiempo de expiración
-            var user_reset = _context.usuarios
-                .Where(c => c.Email == model.Email && c.ResetTokenExpiry.HasValue && c.ResetTokenExpiry.Value.AddMinutes(5) >= DateTime.Now)
+            // Intentar encontrar un usuario con el correo electrónico y la contraseña proporcionados
+            var user = _context.usuarios
+                .Where(c => c.Email == model.Email && c.Password == model.Password)
                 .FirstOrDefault();
 
-            if (user_reset != null)
+            // Verificar si el usuario o la contraseña son NULL o inválidos
+            if (user != null && !string.IsNullOrEmpty(user.Password))
             {
-                // Restablecer la contraseña si el token de reinicio es válido
-                user_reset.Password = user_reset.ResetToken;
-                _context.usuarios.Update(user_reset);
-                await _context.SaveChangesAsync();
-                return Ok(new { message = "Contraseña restablecida con éxito. Acceso correcto." });
+                // Si el login es exitoso, devolver "Acceso correcto"
+                return Ok(new { message = "Acceso correcto" });
             }
             else
             {
-                // Intentar encontrar un usuario con el correo electrónico y la contraseña proporcionados
-                var user = _context.usuarios
-                    .Where(c => c.Email == model.Email && c.Password == model.Password)
-                    .Select(a => new { a.Email, a.Password }) // Selecciona solo los campos necesarios
+                // Si las credenciales no son correctas, entonces verificar si hay un token de restablecimiento de contraseña
+                var user_reset = _context.usuarios
+                    .Where(c => c.Email == model.Email && c.ResetTokenExpiry.HasValue && c.ResetTokenExpiry.Value.AddMinutes(5) >= DateTime.Now)
                     .FirstOrDefault();
 
-                // Verificar si el usuario o la contraseña son NULL o inválidos
-                if (user == null || string.IsNullOrEmpty(user.Password))
+                if (user_reset != null)
                 {
-                    var error = new
-                    {
-                        error_text = "Valide las credenciales nuevamente",
-                        status_error = "Error en login"
-                    };
-                    return BadRequest(error);
+                    // Si el token de restablecimiento es válido, restablecer la contraseña
+                    user_reset.Password = user_reset.ResetToken; // Usar el token como la nueva contraseña
+                    _context.usuarios.Update(user_reset);
+                    await _context.SaveChangesAsync();
+
+                    // Devuelve el mensaje de "Contraseña restablecida con éxito"
+                    return Ok(new { message = "Contraseña restablecida con éxito" });
                 }
 
-                // Retornar Ok si el usuario es encontrado y la contraseña es correcta
-                return Ok(new { message = "Acceso correcto" });
+                // Si no es posible hacer login ni restablecer la contraseña, devolver error
+                return BadRequest(new { message = "Valide las credenciales nuevamente" });
             }
         }
 
@@ -120,8 +116,84 @@ namespace CLINICA.Controllers
         {
             public string status_error { get; set; }
             public string error_text { get; set; }
-
         }
+        // POST: api/Auth/reset
+        [HttpPost]
+        [Route("reset")]
+        public async Task<IActionResult> ResetPassword(ResetTokenDTO model)
+        {
+            // Validar el modelo de la solicitud
+            var (error_in_request, validate) = ValidateRequest(model);
+            if (validate) return BadRequest(error_in_request);
+
+            // Buscar el usuario que coincida con el email y el reset token
+            var user_reset = _context.usuarios
+                .Where(c => c.Email == model.Email && c.ResetToken == model.ResetToken && c.ResetTokenExpiry.HasValue)
+                .FirstOrDefault();
+
+            if (user_reset != null)
+            {
+                // Obtener la fecha de expiración del token
+                var expiryTime = user_reset.ResetTokenExpiry.Value;
+                var currentTime = DateTime.Now;
+
+                // Calcular la diferencia entre la fecha de expiración y la fecha actual
+                var timeDifference = expiryTime - currentTime;
+
+                // Verificar si han pasado más de 5 minutos
+                if (timeDifference.TotalMinutes <= 0)  // Si el tiempo restante es 0 o negativo, el token ha expirado
+                {
+                    return BadRequest(new { message = "El token ha expirado." });
+                }
+
+                // Si el token no ha expirado, restablecer la contraseña con la nueva proporcionada
+                user_reset.Password = model.NewPassword;  // Usar la nueva contraseña proporcionada por el usuario
+                user_reset.ResetToken = null;  // Invalidar el token después de usarlo
+                user_reset.ResetTokenExpiry = null;  // Eliminar la fecha de expiración del token
+
+                _context.usuarios.Update(user_reset);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Contraseña restablecida con éxito" });
+            }
+
+            // Si el token no es válido o no se encuentra el usuario, devolver error
+            return BadRequest(new { message = "Token de restablecimiento inválido o no encontrado" });
+        }
+
+        // Método para validar los datos de la solicitud entrante
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public (ErrorModel, bool) ValidateRequest(ResetTokenDTO model)
+        {
+            ErrorModel error = new ErrorModel();
+
+            // Verificar si el campo email está vacío
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                error.status_error = "Campo email es necesario";
+                error.error_text = "Campo requerido";
+                return (error, true);
+            }
+            // Verificar si el campo reset token está vacío
+            else if (string.IsNullOrEmpty(model.ResetToken))
+            {
+                error.status_error = "Campo ResetToken es necesario";
+                error.error_text = "Campo requerido";
+                return (error, true);
+            }
+            // Verificar si el campo nueva contraseña está vacío
+            else if (string.IsNullOrEmpty(model.NewPassword))
+            {
+                error.status_error = "Campo nueva contraseña es necesario";
+                error.error_text = "Campo requerido";
+                return (error, true);
+            }
+
+            return (error, false);
+        }
+
+
     }
 }
+
 
