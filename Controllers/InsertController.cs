@@ -4,6 +4,8 @@ using CLINICA.Data;
 using CLINICA.Model_request;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 
 namespace CLINICA.Controllers
 {
@@ -26,7 +28,6 @@ namespace CLINICA.Controllers
 
             // Definir el formato de hora esperado
             string formatoHora = "h:mm tt"; // "h:mm tt" para "1:00 PM"
-
             TimeSpan hora;
 
             if (!string.IsNullOrEmpty(horaString))
@@ -49,6 +50,7 @@ namespace CLINICA.Controllers
                 {
                     return Conflict("Ya existe una reserva para esta fecha y hora. Elige otra.");
                 }
+
                 // Validación de que no se haya hecho una reserva para esta fecha por la misma cédula o correo
                 var reservaPorCedulaOCorreo = db.Reservas
                     .FirstOrDefault(r => (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) && r.fecha.Date == model.fecha.Date);
@@ -57,6 +59,7 @@ namespace CLINICA.Controllers
                 {
                     return Conflict("Ya tienes una reserva para esta fecha. Solo se permite una reserva por día.");
                 }
+
                 // Si no hay conflicto, crear la nueva reserva
                 model_ = new reservas()
                 {
@@ -74,11 +77,88 @@ namespace CLINICA.Controllers
 
                 db.Reservas.Add(model_);
                 db.SaveChanges();
+
+                // Plantilla HTML para el correo detallado
+                string subject = "Confirmación de Reserva";
+                string body = $@"
+                    <!DOCTYPE html>
+                    <html lang='es'>
+                    <head>
+                        <meta charset='UTF-8'>
+                        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                        <title>Confirmación de Reserva</title>
+                        <style>
+                            body {{ font-family: Arial, sans-serif; color: #333; background-color: #f4f4f4; }}
+                            .email-container {{ width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); }}
+                            h1 {{ color: #4CAF50; text-align: center; }}
+                            p {{ font-size: 16px; line-height: 1.6; }}
+                            .footer {{ font-size: 12px; color: #888; text-align: center; margin-top: 20px; }}
+                            .details {{ background-color: #f9f9f9; padding: 10px; margin-top: 20px; border-radius: 5px; }}
+                            .details p {{ margin: 5px 0; }}
+                        </style>
+                    </head>
+                    <body>
+                        <div class='email-container'>
+                            <h1>Confirmación de tu reserva</h1>
+                            <p>Estimado/a <strong>{model.nombre} {model.apellido},</strong></p>
+                            <p>Gracias por reservar con nosotros. A continuación, te enviamos los detalles de tu cita:</p>
+
+                            <div class='details'>
+                                <p><strong>Nombre:</strong> {model.nombre} {model.apellido}</p>
+                                <p><strong>Correo Electrónico:</strong> {model.correo_electronico}</p>
+                                <p><strong>Teléfono:</strong> {model.numero_telefono}</p>
+                                <p><strong>Cédula:</strong> {model.Cedula}</p>
+                                <p><strong>Fecha de la cita:</strong> {model.fecha.ToString("dd/MM/yyyy")}</p>
+                                <p><strong>Hora de la cita:</strong> {model.hora}</p>
+                            </div>
+
+                            <p>Por favor, asegúrate de llegar 10 minutos antes de tu cita. En caso de necesitar reprogramar o cancelar, contáctanos con antelación.</p>
+
+                            <div class='footer'>
+                                <p>Este es un mensaje automático generado por nuestro sistema. No es necesario que respondas este correo.</p>
+                                <p>Si tienes alguna pregunta, no dudes en ponerte en contacto con nosotros.</p>
+                                <p><strong>Clínica Dr. Toruño</strong></p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>";
+
+                Enviaremail(model.correo_electronico, subject, body);
+
                 return Ok(model_);
             }
             else
             {
                 return BadRequest("La hora proporcionada no puede ser nula o vacía.");
+            }
+        }
+
+        // Función para enviar el correo
+        public static bool Enviaremail(string correo, string asunto, string mensaje)
+        {
+            try
+            {
+                MailMessage mail = new()
+                {
+                    To = { new MailAddress(correo) },
+                    From = new MailAddress("citasclinicadrtoruno@gmail.com"),
+                    Subject = asunto,
+                    Body = mensaje,
+                    IsBodyHtml = true
+                };
+                SmtpClient smpt = new()
+                {
+                    Credentials = new NetworkCredential("citasclinicadrtoruno@gmail.com", "ysdawylalosstpmt"),
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true
+                };
+                smpt.Send(mail);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -95,6 +175,5 @@ namespace CLINICA.Controllers
 
             return Ok(new { exists = false });
         }
-
     }
 }
