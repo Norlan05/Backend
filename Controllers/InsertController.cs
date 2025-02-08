@@ -23,11 +23,11 @@ namespace CLINICA.Controllers
         [HttpPost]
         public IActionResult Index(reservaDTO model)
         {
+            Console.WriteLine("Iniciando proceso de reserva...");
             string horaString = model.hora;
             reservas model_ = new reservas();
 
-            // Definir el formato de hora esperado
-            string formatoHora = "h:mm tt"; // "h:mm tt" para "1:00 PM"
+            string formatoHora = "h:mm tt";
             TimeSpan hora;
 
             if (!string.IsNullOrEmpty(horaString))
@@ -37,46 +37,43 @@ namespace CLINICA.Controllers
                     DateTime fechaHora = DateTime.ParseExact(horaString, formatoHora, CultureInfo.InvariantCulture);
                     hora = fechaHora.TimeOfDay;
                 }
-                catch (FormatException)
+                catch (FormatException ex)
                 {
+                    Console.WriteLine("Error en el formato de la hora: " + ex.Message);
                     return BadRequest("La hora proporcionada no tiene un formato válido. Use 'h:mm AM/PM'.");
                 }
 
-                // Validación de existencia de reserva
-                var reservaExistente = db.Reservas
-                    .FirstOrDefault(r => r.fecha.Date == model.fecha.Date && r.hora == hora);
-
+                var reservaExistente = db.Reservas.FirstOrDefault(r => r.fecha.Date == model.fecha.Date && r.hora == hora);
                 if (reservaExistente != null)
                 {
+                    Console.WriteLine("Reserva ya existente para esta fecha y hora.");
                     return Conflict("Ya existe una reserva para esta fecha y hora. Elige otra.");
                 }
 
-                // Validación de que no se haya hecho una reserva para esta fecha por la misma cédula o correo
-                var reservaPorCedulaOCorreo = db.Reservas
-                    .FirstOrDefault(r => (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) && r.fecha.Date == model.fecha.Date);
-
+                var reservaPorCedulaOCorreo = db.Reservas.FirstOrDefault(r => (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) && r.fecha.Date == model.fecha.Date);
                 if (reservaPorCedulaOCorreo != null)
                 {
+                    Console.WriteLine("El usuario ya tiene una reserva para esta fecha.");
                     return Conflict("Ya tienes una reserva para esta fecha. Solo se permite una reserva por día.");
                 }
 
-                // Si no hay conflicto, crear la nueva reserva
                 model_ = new reservas()
                 {
                     nombre = model.nombre,
                     apellido = model.apellido,
                     correo_electronico = model.correo_electronico,
                     numero_telefono = model.numero_telefono,
-                    Cedula = model.Cedula, // Cédula del paciente
+                    Cedula = model.Cedula,
                     fecha = model.fecha.Date,
                     hora = hora,
-                    fecha_hora = model.fecha.Date + hora, // Combina la fecha y hora
-                    estado_id = 1, // Default estado_id
-                    estado_descripcion = "Pendiente" // Default estado_descripcion
+                    fecha_hora = model.fecha.Date + hora,
+                    estado_id = 1,
+                    estado_descripcion = "Pendiente"
                 };
 
                 db.Reservas.Add(model_);
                 db.SaveChanges();
+                Console.WriteLine("Reserva guardada correctamente en la base de datos.");
 
                 // Plantilla HTML para el correo detallado
                 string subject = "Confirmación de Reserva";
@@ -122,22 +119,31 @@ namespace CLINICA.Controllers
                         </div>
                     </body>
                     </html>";
+                bool emailEnviado = Enviaremail(model.correo_electronico, subject, body);
 
-                Enviaremail(model.correo_electronico, subject, body);
+                if (emailEnviado)
+                {
+                    Console.WriteLine("Correo enviado exitosamente a " + model.correo_electronico);
+                }
+                else
+                {
+                    Console.WriteLine("Fallo al enviar el correo a " + model.correo_electronico);
+                }
 
                 return Ok(model_);
             }
             else
             {
+                Console.WriteLine("La hora proporcionada es nula o vacía.");
                 return BadRequest("La hora proporcionada no puede ser nula o vacía.");
             }
         }
 
-        // Función para enviar el correo
         public static bool Enviaremail(string correo, string asunto, string mensaje)
         {
             try
             {
+                Console.WriteLine("Iniciando el envío de correo...");
                 MailMessage mail = new()
                 {
                     To = { new MailAddress(correo) },
@@ -146,18 +152,22 @@ namespace CLINICA.Controllers
                     Body = mensaje,
                     IsBodyHtml = true
                 };
-                SmtpClient smpt = new()
+
+                SmtpClient smtp = new()
                 {
                     Credentials = new NetworkCredential("citasclinicadrtoruno@gmail.com", "ysdawylalosstpmt"),
                     Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true
                 };
-                smpt.Send(mail);
+
+                smtp.Send(mail);
+                Console.WriteLine("Correo enviado exitosamente a " + correo);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine("Error al enviar correo: " + ex.Message);
                 return false;
             }
         }
@@ -165,14 +175,11 @@ namespace CLINICA.Controllers
         [HttpGet("CheckReservation")]
         public IActionResult CheckReservation(string cedula, string email, DateTime date)
         {
-            var reservaExistente = db.Reservas
-                .FirstOrDefault(r => (r.Cedula == cedula || r.correo_electronico == email) && r.fecha.Date == date.Date);
-
+            var reservaExistente = db.Reservas.FirstOrDefault(r => (r.Cedula == cedula || r.correo_electronico == email) && r.fecha.Date == date.Date);
             if (reservaExistente != null)
             {
                 return Ok(new { exists = true });
             }
-
             return Ok(new { exists = false });
         }
     }
