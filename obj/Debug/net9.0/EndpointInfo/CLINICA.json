@@ -329,26 +329,26 @@
         }
       }
     },
-    "/api/InsertPaciente/insert": {
+    "/api/LoginWeb/login": {
       "post": {
         "tags": [
-          "InsertPaciente"
+          "LoginWeb"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/insertDTO"
+                "$ref": "#/components/schemas/LoginWithUsernameRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/insertDTO"
+                "$ref": "#/components/schemas/LoginWithUsernameRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/insertDTO"
+                "$ref": "#/components/schemas/LoginWithUsernameRequestDTO"
               }
             }
           }
@@ -557,6 +557,20 @@
         },
         "additionalProperties": false
       },
+      "LoginWithUsernameRequestDTO": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PacienteDTO": {
         "type": "object",
         "properties": {
@@ -631,28 +645,6 @@
             "nullable": true
           },
           "newPassword": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "insertDTO": {
-        "type": "object",
-        "properties": {
-          "reservaID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "motivo_Consulta": {
-            "type": "string",
-            "nullable": true
-          },
-          "diagnostico": {
-            "type": "string",
-            "nullable": true
-          },
-          "observaciones": {
             "type": "string",
             "nullable": true
           }

@@ -199,16 +199,16 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "CLINICA.Controllers.InsertPacienteController",
-    "Method": "InsertConsulta",
-    "RelativePath": "api/InsertPaciente/insert",
+    "ContainingType": "CLINICA.Controllers.LoginWebController",
+    "Method": "LoginWithUsername",
+    "RelativePath": "api/LoginWeb/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "model",
-        "Type": "CLINICA.Model_request.insertDTO",
+        "Type": "CLINICA.Model_request.LoginWithUsernameRequestDTO",
         "IsRequired": true
       }
     ],
