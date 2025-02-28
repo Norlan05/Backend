@@ -85,6 +85,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "CLINICA.Controllers.BuscarHistorialUsuarioController",
+    "Method": "GetPacienteHistorialPorCorreo",
+    "RelativePath": "api/BuscarHistorialUsuario/buscar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "correo",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CLINICA.Controllers.BuscarPacienteController",
     "Method": "GetPacienteHistorial",
     "RelativePath": "api/BuscarPaciente/buscar",
@@ -212,6 +228,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.LoginWebController",
+    "Method": "VerificarSesion",
+    "RelativePath": "api/LoginWeb/verificarSesion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

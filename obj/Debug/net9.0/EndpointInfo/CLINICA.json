@@ -157,6 +157,27 @@
         }
       }
     },
+    "/api/BuscarHistorialUsuario/buscar": {
+      "get": {
+        "tags": [
+          "BuscarHistorialUsuario"
+        ],
+        "parameters": [
+          {
+            "name": "correo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/BuscarPaciente/buscar": {
       "get": {
         "tags": [
@@ -360,6 +381,18 @@
         }
       }
     },
+    "/api/LoginWeb/verificarSesion": {
+      "get": {
+        "tags": [
+          "LoginWeb"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Reservas/search": {
       "get": {
         "tags": [
@@ -476,7 +509,31 @@
             "type": "integer",
             "format": "int32"
           },
-          "descripcion": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "correo_electronico": {
+            "type": "string",
+            "nullable": true
+          },
+          "numero_telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "cedula": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "hora": {
             "type": "string",
             "nullable": true
           }
