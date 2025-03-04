@@ -199,9 +199,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "CLINICA.Controllers.InsertPacienteController",
+    "ContainingType": "CLINICA.Controllers.InsertarPacienteController",
     "Method": "InsertarPaciente",
-    "RelativePath": "api/InsertPaciente",
+    "RelativePath": "api/InsertarPaciente",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -238,6 +238,38 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.RegistroConsultaController",
+    "Method": "InsertarPaciente",
+    "RelativePath": "api/RegistroConsulta",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CLINICA.Model_request.PacienteDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.RegistroConsultaController",
+    "Method": "InsertConsulta",
+    "RelativePath": "api/RegistroConsulta/insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CLINICA.Model_request.insertDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

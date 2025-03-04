@@ -319,10 +319,10 @@
         }
       }
     },
-    "/api/InsertPaciente": {
+    "/api/InsertarPaciente": {
       "post": {
         "tags": [
-          "InsertPaciente"
+          "InsertarPaciente"
         ],
         "requestBody": {
           "content": {
@@ -386,6 +386,68 @@
         "tags": [
           "LoginWeb"
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/RegistroConsulta": {
+      "post": {
+        "tags": [
+          "RegistroConsulta"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/RegistroConsulta/insert": {
+      "post": {
+        "tags": [
+          "RegistroConsulta"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/insertDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/insertDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/insertDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -702,6 +764,28 @@
             "nullable": true
           },
           "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "insertDTO": {
+        "type": "object",
+        "properties": {
+          "reservaID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "motivo_Consulta": {
+            "type": "string",
+            "nullable": true
+          },
+          "diagnostico": {
+            "type": "string",
+            "nullable": true
+          },
+          "observaciones": {
             "type": "string",
             "nullable": true
           }

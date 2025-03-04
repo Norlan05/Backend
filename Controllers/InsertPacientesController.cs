@@ -1,4 +1,4 @@
-﻿// Controller: InsertPacienteController.cs
+﻿
 using CLINICA.Data;
 using CLINICA.Modelos;
 using CLINICA.Model_request;
@@ -14,12 +14,12 @@ namespace CLINICA.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class InsertPacienteController : ControllerBase
+    public class InsertarPacienteController : ControllerBase
     {
         private readonly ClinicaDbcontext _db;
         private readonly ClinicaDbcontext _context;  // Asegúrate de tener esta referencia al contexto de usuarios
 
-        public InsertPacienteController(ClinicaDbcontext db, ClinicaDbcontext context)
+        public InsertarPacienteController(ClinicaDbcontext db, ClinicaDbcontext context)
         {
             _db = db;
             _context = context;
