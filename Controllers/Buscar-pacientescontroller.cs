@@ -24,18 +24,27 @@ namespace CLINICA.Controllers
         {
             try
             {
+                // Normalizamos los parámetros
+                var cedulaParam = (cedula ?? "").Trim().Replace("-", "").ToUpper();
+                var correoParam = (correo ?? "").Trim().ToLower();
+
                 // Inicializamos la consulta de pacientes
                 var pacientes = _context.Pacientes.AsQueryable();
 
                 // Si se proporciona cédula, filtramos por cédula
-                if (!string.IsNullOrWhiteSpace(cedula))
+                if (!string.IsNullOrWhiteSpace(cedulaParam))
                 {
-                    pacientes = pacientes.Where(p => p.Cedula == cedula);
+                    pacientes = pacientes.Where(p =>
+                        p.Cedula.Replace("-", "").Trim().ToUpper() == cedulaParam
+                    );
                 }
+
                 // Si se proporciona correo, filtramos por correo electrónico
-                else if (!string.IsNullOrWhiteSpace(correo))
+                if (!string.IsNullOrWhiteSpace(correoParam))
                 {
-                    pacientes = pacientes.Where(p => p.correo_electronico == correo);
+                    pacientes = pacientes.Where(p =>
+                        p.correo_electronico.Trim().ToLower() == correoParam
+                    );
                 }
 
                 // Realizamos la consulta y la obtenemos como lista

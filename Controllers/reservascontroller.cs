@@ -23,13 +23,8 @@ namespace CLINICA.Controllers
         {
             try
             {
-                // Obtener la fecha de hoy sin hora
-                var fechaHoy = DateTime.Now.Date;
-
-                // Inicializamos la consulta de reservas
-                var reservas = _context.Reservas
-                    .Where(r => r.fecha_hora.Date == fechaHoy)  // Filtramos las reservas para que sean solo del día de hoy
-                    .AsQueryable();
+                // Inicializamos la consulta de reservas (sin filtrar por fecha)
+                var reservas = _context.Reservas.AsQueryable();
 
                 // Si se proporciona cédula, filtramos por cédula
                 if (!string.IsNullOrWhiteSpace(cedula))
@@ -41,6 +36,9 @@ namespace CLINICA.Controllers
                 {
                     reservas = reservas.Where(r => r.correo_electronico == correo);
                 }
+
+                // Ordenamos las reservas por fecha descendente (más reciente primero)
+                reservas = reservas.OrderByDescending(r => r.fecha_hora);
 
                 // Realizamos la consulta y la obtenemos como lista
                 var result = reservas
@@ -55,7 +53,7 @@ namespace CLINICA.Controllers
                         numero_telefono = r.numero_telefono,
                         // Formateamos la fecha
                         fecha = r.fecha_hora.ToString("yyyy-MM-dd"), // Fecha en formato yyyy-MM-dd
-                                                                     // Formateamos la hora para que sea de 12 horas con AM/PM
+                        // Formateamos la hora para que sea de 12 horas con AM/PM
                         hora = r.fecha_hora.ToString("h:mm tt"),
                     })
                     .ToList();
@@ -74,6 +72,5 @@ namespace CLINICA.Controllers
                 return StatusCode(500, new { message = "Error interno al buscar las reservas.", details = ex.Message });
             }
         }
-
     }
 }
