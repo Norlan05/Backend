@@ -19,6 +19,7 @@ namespace CLINICA.Data
         public virtual DbSet<Pacientes> Pacientes { get; set; }
         public virtual DbSet<estados> Estados { get; set; } // Asegúrate de agregar el DbSet para Estado
         public virtual DbSet<Usuario> usuarios { get; set; }  // Tabla Users  
+     
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

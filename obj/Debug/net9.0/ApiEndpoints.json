@@ -334,5 +334,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CLINICA.Controllers.UsuariosController",
+    "Method": "GetUsuarios",
+    "RelativePath": "api/Usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]
