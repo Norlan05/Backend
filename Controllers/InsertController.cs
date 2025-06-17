@@ -178,14 +178,38 @@ namespace CLINICA.Controllers
         }
 
         [HttpGet("CheckReservation")]
-        public IActionResult CheckReservation(string cedula, string email, DateTime date)
+        public IActionResult CheckReservation(string cedula, string email, DateTime date, string hora)
         {
-            var reservaExistente = db.Reservas.FirstOrDefault(r => (r.Cedula == cedula || r.correo_electronico == email) && r.fecha.Date == date.Date);
-            if (reservaExistente != null)
+            // Normalizamos cédula y correo
+            string cedulaNormalizada = cedula.Trim().ToUpper();
+            string emailNormalizado = email.Trim().ToLower();
+
+            // Validar si el mismo cliente ya tiene una reserva en esa fecha
+            var mismaPersona = db.Reservas.Any(r =>
+                r.Cedula.Trim().ToUpper() == cedulaNormalizada &&
+                r.correo_electronico.Trim().ToLower() == emailNormalizado &&
+                r.fecha.Date == date.Date
+            );
+
+            if (mismaPersona)
             {
-                return Ok(new { exists = true });
+                return Ok(new { exists = true, reason = "cliente_ya_tiene_reserva" });
             }
+
+            // Validar si la hora ya está ocupada por cualquier paciente ese día
+            var horaOcupada = db.Reservas.Any(r =>
+                r.fecha.Date == date.Date &&
+                r.fecha.ToString("HH:mm") == hora
+            );
+
+            if (horaOcupada)
+            {
+                return Ok(new { exists = true, reason = "hora_ocupada" });
+            }
+
+            // No hay conflicto
             return Ok(new { exists = false });
         }
+
     }
 }
