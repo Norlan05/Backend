@@ -50,7 +50,9 @@ namespace CLINICA.Controllers
                     return Conflict("Ya existe una reserva para esta fecha y hora. Elige otra.");
                 }
 
-                var reservaPorCedulaOCorreo = db.Reservas.FirstOrDefault(r => (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) && r.fecha.Date == model.fecha.Date);
+                var reservaPorCedulaOCorreo = db.Reservas.FirstOrDefault(r => (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) && 
+                r.fecha.Date == model.fecha.Date &&
+                    r.estado_id != 3);
                 if (reservaPorCedulaOCorreo != null)
                 {
                     Console.WriteLine("El usuario ya tiene una reserva para esta fecha.");
@@ -188,7 +190,8 @@ namespace CLINICA.Controllers
             var mismaPersona = db.Reservas.Any(r =>
                 r.Cedula.Trim().ToUpper() == cedulaNormalizada &&
                 r.correo_electronico.Trim().ToLower() == emailNormalizado &&
-                r.fecha.Date == date.Date
+                r.fecha.Date == date.Date &&
+                r.estado_id != 3
             );
 
             if (mismaPersona)
@@ -199,7 +202,8 @@ namespace CLINICA.Controllers
             // Validar si la hora ya está ocupada por cualquier paciente ese día
             var horaOcupada = db.Reservas.Any(r =>
                 r.fecha.Date == date.Date &&
-                r.fecha.ToString("HH:mm") == hora
+                r.fecha.ToString("HH:mm") == hora &&
+                r.estado_id != 3
             );
 
             if (horaOcupada)
