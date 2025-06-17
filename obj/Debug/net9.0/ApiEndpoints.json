@@ -194,6 +194,11 @@
         "Name": "date",
         "Type": "System.DateTime",
         "IsRequired": false
+      },
+      {
+        "Name": "hora",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

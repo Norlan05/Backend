@@ -310,6 +310,13 @@
               "type": "string",
               "format": "date-time"
             }
+          },
+          {
+            "name": "hora",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

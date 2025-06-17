@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\norla\\Documents\\Proyecto Final Pagina Web\\API\\CLINICA.csproj": {}
+    "C:\\Users\\norla\\Documents\\Proyecto_Final_Pagina_Web\\API\\CLINICA.csproj": {}
   },
   "projects": {
-    "C:\\Users\\norla\\Documents\\Proyecto Final Pagina Web\\API\\CLINICA.csproj": {
+    "C:\\Users\\norla\\Documents\\Proyecto_Final_Pagina_Web\\API\\CLINICA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\norla\\Documents\\Proyecto Final Pagina Web\\API\\CLINICA.csproj",
+        "projectUniqueName": "C:\\Users\\norla\\Documents\\Proyecto_Final_Pagina_Web\\API\\CLINICA.csproj",
         "projectName": "CLINICA",
-        "projectPath": "C:\\Users\\norla\\Documents\\Proyecto Final Pagina Web\\API\\CLINICA.csproj",
+        "projectPath": "C:\\Users\\norla\\Documents\\Proyecto_Final_Pagina_Web\\API\\CLINICA.csproj",
         "packagesPath": "C:\\Users\\norla\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\norla\\Documents\\Proyecto Final Pagina Web\\API\\obj\\",
+        "outputPath": "C:\\Users\\norla\\Documents\\Proyecto_Final_Pagina_Web\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

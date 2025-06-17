@@ -45,11 +45,13 @@ namespace CLINICA.Controllers
                 return NotFound("Estado no encontrado.");
             }
 
-            // Si el estado es "Cancelado" (estado_id == 3), eliminamos la reserva
+            // ✅ Solo actualizamos el estado, no eliminamos
+            reserva.estado_id = estado.estado_id;
+            reserva.estado_descripcion = estado.descripcion;
+            _db.SaveChanges();
+
             if (model.estado_id == 3)
             {
-                _db.Reservas.Remove(reserva);  // Eliminar la reserva
-                _db.SaveChanges();  // Guardamos los cambios para que la reserva sea eliminada
 
                 string subject = "Cancelación de cita";
                 string body = $@"
@@ -111,11 +113,7 @@ namespace CLINICA.Controllers
                 return Ok(new { mensaje = "Cita cancelada y hora liberada correctamente." });
             }
 
-            // Si no es "Cancelado", solo actualizamos el estado de la reserva
-            reserva.estado_id = estado.estado_id;
-            reserva.estado_descripcion = estado.descripcion;
-
-            _db.SaveChanges();
+           
 
             string subjectConfirmacion = "Confirmación de cita";
             string bodyConfirmacion = $@"
