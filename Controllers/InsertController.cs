@@ -43,16 +43,23 @@ namespace CLINICA.Controllers
                     return BadRequest("La hora proporcionada no tiene un formato válido. Use 'h:mm AM/PM'.");
                 }
 
-                var reservaExistente = db.Reservas.FirstOrDefault(r => r.fecha.Date == model.fecha.Date && r.hora == hora);
+                // ✅ CORREGIDO: ahora ignora reservas canceladas (estado_id = 3)
+                var reservaExistente = db.Reservas.FirstOrDefault(r =>
+                    r.fecha.Date == model.fecha.Date &&
+                    r.hora == hora &&
+                    r.estado_id != 3);
+
                 if (reservaExistente != null)
                 {
                     Console.WriteLine("Reserva ya existente para esta fecha y hora.");
                     return Conflict("Ya existe una reserva para esta fecha y hora. Elige otra.");
                 }
 
-                var reservaPorCedulaOCorreo = db.Reservas.FirstOrDefault(r => (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) && 
-                r.fecha.Date == model.fecha.Date &&
+                var reservaPorCedulaOCorreo = db.Reservas.FirstOrDefault(r =>
+                    (r.Cedula == model.Cedula || r.correo_electronico == model.correo_electronico) &&
+                    r.fecha.Date == model.fecha.Date &&
                     r.estado_id != 3);
+
                 if (reservaPorCedulaOCorreo != null)
                 {
                     Console.WriteLine("El usuario ya tiene una reserva para esta fecha.");
@@ -76,7 +83,7 @@ namespace CLINICA.Controllers
                 db.Reservas.Add(model_);
                 db.SaveChanges();
                 Console.WriteLine("Reserva guardada correctamente en la base de datos.");
-                // Plantilla HTML para el correo de recepción de solicitud de cita
+
                 string subject = "Recepción de solicitud de cita";
                 string body = $@"
                 <!DOCTYPE html>
@@ -107,13 +114,11 @@ namespace CLINICA.Controllers
                             <p>📧 <strong>Correo Electrónico:</strong> {model.correo_electronico}</p>
                             <p>📞 <strong>Teléfono:</strong> {model.numero_telefono}</p>
                             <p>🆔 <strong>Cédula:</strong> {model.Cedula}</p>
-                            <p>📆 <strong>Fecha solicitada:</strong> {model.fecha.ToString("dd/MM/yyyy")}</p>
+                            <p>📆 <strong>Fecha solicitada:</strong> {model.fecha:dd/MM/yyyy}</p>
                             <p>🕒 <strong>Hora solicitada:</strong> {model.hora}</p>
                         </div>
 
-                        <p><strong>⚠️ Importante:</strong> Esta solicitud aún no ha sido confirmada. Nos pondremos en contacto contigo lo antes posible para verificar la disponibilidad de la fecha y hora seleccionadas. En caso de necesitar modificar o cancelar tu solicitud, puedes escribirnos a nuestro correo o llamarnos directamente.</p>
-
-                        <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en comunicarte con nuestro equipo. Estaremos encantados de ayudarte.</p>
+                        <p><strong>⚠️ Importante:</strong> Esta solicitud aún no ha sido confirmada. Nos pondremos en contacto contigo lo antes posible para verificar la disponibilidad.</p>
 
                         <div class='footer'>
                             <p><strong>📌 Clínica Dr. Toruño</strong></p>
@@ -126,16 +131,8 @@ namespace CLINICA.Controllers
                     </div>
                 </body>
                 </html>";
-                bool emailEnviado = Enviaremail(model.correo_electronico, subject, body);
 
-                if (emailEnviado)
-                {
-                    Console.WriteLine("Correo enviado exitosamente a " + model.correo_electronico);
-                }
-                else
-                {
-                    Console.WriteLine("Fallo al enviar el correo a " + model.correo_electronico);
-                }
+                Enviaremail(model.correo_electronico, subject, body);
 
                 return Ok(model_);
             }
@@ -182,11 +179,9 @@ namespace CLINICA.Controllers
         [HttpGet("CheckReservation")]
         public IActionResult CheckReservation(string cedula, string email, DateTime date, string hora)
         {
-            // Normalizamos cédula y correo
             string cedulaNormalizada = cedula.Trim().ToUpper();
             string emailNormalizado = email.Trim().ToLower();
 
-            // Validar si el mismo cliente ya tiene una reserva en esa fecha
             var mismaPersona = db.Reservas.Any(r =>
                 r.Cedula.Trim().ToUpper() == cedulaNormalizada &&
                 r.correo_electronico.Trim().ToLower() == emailNormalizado &&
@@ -195,11 +190,8 @@ namespace CLINICA.Controllers
             );
 
             if (mismaPersona)
-            {
                 return Ok(new { exists = true, reason = "cliente_ya_tiene_reserva" });
-            }
 
-            // Validar si la hora ya está ocupada por cualquier paciente ese día
             var horaOcupada = db.Reservas.Any(r =>
                 r.fecha.Date == date.Date &&
                 r.fecha.ToString("HH:mm") == hora &&
@@ -207,13 +199,9 @@ namespace CLINICA.Controllers
             );
 
             if (horaOcupada)
-            {
                 return Ok(new { exists = true, reason = "hora_ocupada" });
-            }
 
-            // No hay conflicto
             return Ok(new { exists = false });
         }
-
     }
 }
