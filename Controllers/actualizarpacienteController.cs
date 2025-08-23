@@ -128,8 +128,8 @@ namespace CLINICA.Controllers
                         <body>
                             <div class='email-container'>
                                 <h1>🎉 ¡Hola, {pacienteDTO.nombre} {pacienteDTO.apellido}!</h1>
-                                <p>Te informamos que tu correo electrónico ha sido actualizado correctamente en nuestro sistema. A continuación, te dejamos tus detalles actualizados:</p>
-
+                                <p>Te informamos que tus datos han sido actualizados correctamente en nuestro sistema.  
+                                    A continuación, te compartimos nuevamente tus datos de acceso:</p>
                                 <div class='user-details'>
                                     <h2>📋 Detalles de tu cuenta:</h2>
                                     <p>👤 <strong>Usuario:</strong> <span class='highlight'>{usuarioExistente.Username}</span></p>
