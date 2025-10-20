@@ -88,7 +88,7 @@ namespace CLINICA.Controllers
                             <p>🕒 <strong>Hora solicitada:</strong> {model.hora}</p>
                         </div>
 
-                        <p><strong class='important'>Si deseas reagendar tu cita o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros.</strong></p>
+                        <p><strong class='important'>Si deseas reagendar tu cita o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros +505 86288420.</strong></p>
                         <p>Nos disculpamos por cualquier inconveniente que esto pueda haberte ocasionado y estamos aquí para ayudarte en todo lo que necesites.</p>
 
                         <div class='footer'>
